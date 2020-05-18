@@ -11,6 +11,11 @@
 
 <div class="col-md-6">
 
+    <div>
+        @Html.ActionLink("Hide Done Items", "Detail", new {todoListId = Model.TodoListId, hideDoneItems = true})<br/>
+        @Html.ActionLink("Show Done Items", "Detail", new {todoListId = Model.TodoListId, hideDoneItems = false})
+    </div>
+
     <ul class="list-group">
 
         <li class="list-group-item">

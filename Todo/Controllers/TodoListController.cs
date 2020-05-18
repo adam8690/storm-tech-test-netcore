@@ -8,6 +8,7 @@ using Todo.Data.Entities;
 using Todo.EntityModelMappers.TodoLists;
 using Todo.Models.TodoLists;
 using Todo.Services;
+using System.Linq;
 
 namespace Todo.Controllers
 {
@@ -31,9 +32,13 @@ namespace Todo.Controllers
             return View(viewmodel);
         }
 
-        public IActionResult Detail(int todoListId)
+        public IActionResult Detail(int todoListId, [FromQuery] bool hideDoneItems = false)
         {
             var todoList = dbContext.SingleTodoList(todoListId);
+            if (hideDoneItems)
+            {
+                todoList.Items = todoList.Items.Where(item => !item.IsDone).ToList();
+            }
             var viewmodel = TodoListDetailViewmodelFactory.Create(todoList);
             return View(viewmodel);
         }
