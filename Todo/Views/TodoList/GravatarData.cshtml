@@ -1,0 +1,7 @@
+@using Todo.Services
+@model Todo.Models.TodoLists.TodoListGravatarViewmodel
+
+@{
+    var name = await Gravatar.GetNameFromProfile(Model.Email);
+}
+<b>@name</b>

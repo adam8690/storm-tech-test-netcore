@@ -55,6 +55,11 @@ namespace Todo.Controllers
             return View(viewmodel);
         }
 
+        public IActionResult GravatarData(string email)
+        {
+            return PartialView(new TodoListGravatarViewmodel(email));
+        }
+
         [HttpGet]
         public IActionResult Create()
         {
