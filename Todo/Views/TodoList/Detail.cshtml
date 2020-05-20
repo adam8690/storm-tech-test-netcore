@@ -12,8 +12,36 @@
 <div class="col-md-6">
 
     <div>
-        @Html.ActionLink("Hide Done Items", "Detail", new {todoListId = Model.TodoListId, hideDoneItems = true})<br/>
-        @Html.ActionLink("Show Done Items", "Detail", new {todoListId = Model.TodoListId, hideDoneItems = false})
+        @using (Html.BeginForm("Detail", "ToDoList", FormMethod.Get))
+        {
+            <input type="hidden" name="todoListId" value="@Model.TodoListId" />
+
+            <p>
+                <b>Filters</b>
+            </p>
+
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBoxFor(model => model.HideDoneItems, new { name = "hideDoneItems" })
+                    @Html.DisplayNameFor(model => model.HideDoneItems)
+                </label>
+            </div>
+
+            <p>
+                <b>Order by:</b>
+            </p>
+            <div class="checkbox">                             
+                @Html.RadioButtonFor(model => model.SortOrder, "importance", new { name = "sortOrder", id = "importance" })      
+                <label class="radio-inline" for="importance">Most Important</label>
+             
+                @Html.RadioButtonFor(model => model.SortOrder, "rank_asc", new { name = "sortOrder", id = "rank_asc" }) 
+                <label class="radio-inline" for="rank_asc">Rank Ascending</label>              
+            </div>
+
+            <div class="form-group text-left">
+                <input type="submit" class="btn btn-primary" value="Apply Sorting & Filtering" />
+            </div>        
+        }
     </div>
 
     <ul class="list-group">
@@ -24,7 +52,7 @@
             </a>
         </li>
 
-        @foreach (var item in Model.Items.OrderBy(item => item.Importance))
+        @foreach (var item in Model.Items)
         {
             string contextualClass;
             switch (item.Importance)
