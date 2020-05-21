@@ -15,10 +15,10 @@ namespace Todo.Controllers
     [Authorize]
     public class TodoListController : Controller
     {
-        private readonly ApplicationDbContext dbContext;
+        private readonly IApplicationDbContext dbContext;
         private readonly IUserStore<IdentityUser> userStore;
 
-        public TodoListController(ApplicationDbContext dbContext, IUserStore<IdentityUser> userStore)
+        public TodoListController(IApplicationDbContext dbContext, IUserStore<IdentityUser> userStore)
         {
             this.dbContext = dbContext;
             this.userStore = userStore;
